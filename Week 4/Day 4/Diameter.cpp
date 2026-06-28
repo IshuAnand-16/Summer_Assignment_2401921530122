@@ -9,17 +9,20 @@ struct TreeNode {
       TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
   };
-  
+
   class Solution {
 public:
-    bool  check(TreeNode* p, TreeNode* q){
-        if(!p && !q) return true;
-        if(!p || !q) return false;
-        return p->val == q->val && check(p->left, q->left) && check(p->right,q->right);
+    int d = 0;
+    int helper(TreeNode* root){
+        if(!root) return 0;
+        int left = helper(root->left);
+        int right = helper(root->right);
+        d = max(d, left+right);
+        return 1+max(left, right);
     }
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        // root -> p and q
-        // write a func and check are they equal or not
-        return check(p,q);
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(!root) return d;
+        int temp = helper(root);
+        return d;  
     }
 };

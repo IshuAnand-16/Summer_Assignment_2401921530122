@@ -9,17 +9,20 @@ struct TreeNode {
       TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
   };
-  
+
   class Solution {
 public:
-    bool  check(TreeNode* p, TreeNode* q){
-        if(!p && !q) return true;
-        if(!p || !q) return false;
-        return p->val == q->val && check(p->left, q->left) && check(p->right,q->right);
+    int ans = INT_MIN;
+    int solve(TreeNode* root){
+        if(!root) return 0;
+        int left = max(0, solve(root->left));
+        int right = max(0, solve(root->right));
+        ans = max(ans, root->val+left+right);
+        return root->val+max(left, right);
     }
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        // root -> p and q
-        // write a func and check are they equal or not
-        return check(p,q);
+    int maxPathSum(TreeNode* root) {
+        if(!root) return 0;
+        solve(root);
+        return ans;
     }
 };

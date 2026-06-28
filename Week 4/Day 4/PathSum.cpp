@@ -9,17 +9,16 @@ struct TreeNode {
       TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
   };
-  
+
   class Solution {
 public:
-    bool  check(TreeNode* p, TreeNode* q){
-        if(!p && !q) return true;
-        if(!p || !q) return false;
-        return p->val == q->val && check(p->left, q->left) && check(p->right,q->right);
+    bool helper(TreeNode* root, int target){
+        if(!root) return false;
+        target -= root->val;
+        if(!root->left && !root->right) return target == 0;
+        return (helper(root->left, target)||helper(root->right,target));
     }
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        // root -> p and q
-        // write a func and check are they equal or not
-        return check(p,q);
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        return helper(root, targetSum);
     }
 };
