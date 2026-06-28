@@ -11,14 +11,10 @@
  */
 class Solution {
 public:
-    bool  check(TreeNode* p, TreeNode* q){
-        if(!p && !q) return true;
-        if(!p || !q) return false;
-        return p->val == q->val && check(p->left, q->left) && check(p->right,q->right);
-    }
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        // root -> p and q
-        // write a func and check are they equal or not
-        return check(p,q);
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        int left = maxDepth(root->left);
+        int right = maxDepth(root->right);
+        return 1+max(left, right);
     }
 };

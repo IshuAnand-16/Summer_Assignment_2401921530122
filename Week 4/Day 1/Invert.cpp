@@ -11,14 +11,14 @@
  */
 class Solution {
 public:
-    bool  check(TreeNode* p, TreeNode* q){
-        if(!p && !q) return true;
-        if(!p || !q) return false;
-        return p->val == q->val && check(p->left, q->left) && check(p->right,q->right);
-    }
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        // root -> p and q
-        // write a func and check are they equal or not
-        return check(p,q);
+    TreeNode* invertTree(TreeNode* root) {
+        // root
+        // invert the tree 
+        // return the root
+        if(!root) return NULL;
+        swap(root->left, root->right);
+        invertTree(root->left);
+        invertTree(root->right);
+        return root;
     }
 };
